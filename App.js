@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import "react-native-gesture-handler";
+import HomeScreen from "./src/screens/HomeScreen";
+import FindMechanic from "./src/screens/FindMechanic";
+import AddReview from "./src/screens/AddReview";
+import Order from "./src/screens/Order";
+import InProcess from "./src/screens/InProcess";
+import MapScreen from "./src/screens/MapScreen";
+import VisitMechanic from "./src/screens/Visit Mechanic/VistMechanic";
+import ConfirmDetails from "./src/screens/ConfirmDetails";
+import ConfirmLocation from "./src/screens/ConfirmLocation";
+import ServiceList from "./src/screens/ServiceList";
+import Waiting from "./src/screens/Waiting";
+import { LoginScreen, RegisterScreen } from "./src/screens";
+import { LogBox } from "react-native";
+import ShopLocation from "./src/screens/Visit Mechanic/ShopLocation";
+import Chat from "./src/screens/Chat/Chat";
+import ImagePicker from "./src/screens/Chat/ImagePicker";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+LogBox.ignoreLogs([
+  "exported from 'deprecated-react-native-prop-types'.",
+  "componentWillReceiveProps has been renamed",
+]);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const navigator = createStackNavigator(
+  {
+    Register: RegisterScreen,
+    Login: LoginScreen,
+    Home: HomeScreen,
+    Find: FindMechanic,
+    Process: InProcess,
+    Service: ServiceList,
+    Confirm: ConfirmDetails,
+    ConfirmLocation: ConfirmLocation,
+    Maps: MapScreen,
+    Wait: Waiting,
+    OrderDetails: Order,
+    AdReview: AddReview,
+    Chat,
+    ImagePicker,
+
+    Visit: VisitMechanic,
+    ShopLocation: ShopLocation,
   },
-});
+  {
+    initialRouteName: "Login",
+    defaultNavigationOptions: {
+      title: "Customer App",
+    },
+  }
+);
+
+export default createAppContainer(navigator);
